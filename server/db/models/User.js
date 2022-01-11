@@ -2,19 +2,60 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
-const axios = require('axios');
+// const axios = require('axios');
+const { STRING } = Sequelize.DataTypes
 
 const SALT_ROUNDS = 5;
 
-const User = db.define('user', {
+const User = db.define('users', {
   username: {
-    type: Sequelize.STRING,
+    type: STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   password: {
-    type: Sequelize.STRING,
-  }
+    type: STRING,
+  },
+  firstName: {
+    type: STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  lastName: {
+    type: STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  imageUrl: {
+    type: STRING,
+    allowNull: false,
+    validate: {
+      isUrl: true
+    },
+    defaultValue: 'https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2F0JTIwd2l0aCUyMGdsYXNzZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
+  },
+  email: {
+    type: STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      isEmail: true
+    }
+  },
+  // streetAddress: {
+  //   type: STRING,
+  //   allowNull: false,
+  //   validate: {
+  //     notEmpty: true
+  //   }
+  // }
 })
 
 module.exports = User
