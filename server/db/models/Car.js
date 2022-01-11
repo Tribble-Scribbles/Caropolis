@@ -43,7 +43,7 @@ const Car = db.define('cars', {
     }
   },
   price: {
-    type: DECIMAL,
+    type: STRING,
     allowNull: false,
   },
   imageUrl: {

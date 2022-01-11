@@ -11,7 +11,7 @@ const token = 'ZrQEPSkKc3VuZzk2a2ltQGdtYWlsLmNvbQ=='
  // run this that many times (Just a headsup)
 async function createCars(){
   const {data: carsData} = await axios.get('https://auto.dev/api/listings?apikey=ZrQEPSkKc3VuZzk2a2ltQGdtYWlsLmNvbQ==&make=Make&model=Model%203&category=supercar&radius=5000&page=1')
-  const cars = await Promise.all(carsData.records.map(car => {
+  const cars = carsData.records.map(car => {
     let carObj = {
       vin: car.vin,
       trim: car.trim,
@@ -28,9 +28,9 @@ async function createCars(){
     return carObj;
   }).filter((car) => {
     if(car.color !== null || car.color !== '/'){
-      return Car.create(car)
+      return car
     }
-  }))
+  })
 
   return cars;
 }
@@ -56,7 +56,12 @@ async function seed() {
       email: 'murphy123@mail.com'
     }),
   ])
-  const cars = await createCars();
+  const filteredCars = await createCars();
+
+  await Promise.all(filteredCars.map(car => {
+    return Car.create(car)
+  }))
+
   console.log(`seeded ${cars.length} cars`)
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
