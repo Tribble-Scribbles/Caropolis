@@ -26,7 +26,8 @@ async function seed() {
       firstName: 'Murphy',
       lastName: 'Test',
       email: 'murphy123@mail.com'
-
+    })
+  ])
   const cars = await Promise.all([
     Car.create({
       year: 2007,
