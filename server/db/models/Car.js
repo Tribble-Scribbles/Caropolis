@@ -51,6 +51,15 @@ const Car = db.define('cars', {
     validate: {
       notEmpty: true
     }
+  },
+  qty: {
+    type: INTEGER,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      min: 0
+    },
+    defaultValue: 1,
   }
 })
 
