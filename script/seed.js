@@ -15,21 +15,17 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    User.create({
-      username: "cody",
-      password: "123",
-      firstName: "Cody",
-      lastName: "Test",
-      email: "cody123@mail.com",
+    User.create({  
+      password: '123',
+      firstName: 'Cody',
+      lastName: 'Test',
+      email: 'cody123@mail.com'
     }),
     User.create({
-      username: "murphy",
-      password: "123",
-      firstName: "Murphy",
-      lastName: "Test",
-      email: "murphy123@mail.com",
-    }),
-  ]);
+      password: '123',
+      firstName: 'Murphy',
+      lastName: 'Test',
+      email: 'murphy123@mail.com'
 
   const cars = await Promise.all([
     Car.create({
@@ -42,6 +38,7 @@ async function seed() {
       color: "black",
       origin: "Germany",
       qty: 4,
+
     }),
     Car.create({
       year: 2005,
