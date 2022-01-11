@@ -1,7 +1,6 @@
-const { INTEGER } = require('sequelize')
 const Sequelize = require('sequelize')
 const db = require('../db')
-const { STRING, INTEGER } = Sequelize.DataTypes
+const { STRING, INTEGER, DECIMAL } = Sequelize.DataTypes
 
 const Car = db.define('cars', {
   year: {
