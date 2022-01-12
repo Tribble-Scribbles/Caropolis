@@ -1,20 +1,58 @@
-"use strict";
+
+'use strict'
+const axios = require('axios')
+const {db, models: {User, Car} } = require('../server/db')
+const token = 'ZrQEPSkKc3VuZzk2a2ltQGdtYWlsLmNvbQ=='
 
 const {
   db,
   models: { User, Car },
 } = require("../server/db");
-
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
+
+//https://www.auto.dev/
+// Apparently there is a max of 10,000 api calls with this api for free but I doubt we'll
+// run this that many times (Just a headsup)
+
+async function createCars(){
+  const {data: carsData} = await axios.get('https://auto.dev/api/listings?apikey=ZrQEPSkKc3VuZzk2a2ltQGdtYWlsLmNvbQ==&make=Make&model=Model%203&category=supercar&radius=5000&page=1')
+  const cars = carsData.records.map(car => {
+    let carObj = {
+      vin: car.vin,
+      trim: car.trim,
+      bodyType: car.bodyType,
+      year: car.year,
+      make: car.make,
+      model: car.model,
+      price: car.price,
+      mileage: car.mileage === 'New' ? '0 Miles' : car.mileage,
+      city: car.city,
+      imageUrl: car.primaryPhotoUrl,
+      color: car.displayColor,
+    }
+    return carObj;
+  }).filter((car) => {
+    if(car.color === null){
+      return false
+    }else if(car.color.length <= 2){
+      return false
+    }
+    return true
+  })
+
+  return cars;
+}
+
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
 
   // Creating Users
   const users = await Promise.all([
+
     User.create({  
       password: '123',
       firstName: 'Cody',
@@ -53,6 +91,24 @@ async function seed() {
       origin: "Italy",
       qty: 3,
     }),
+  ])
+  const cars = await createCars();
+
+  await Promise.all(cars.map(car => {
+    return Car.create(car)
+  }))
+
+  console.log(`seeded ${cars.length} cars`)
+  console.log(`seeded ${users.length} users`)
+  console.log(`seeded successfully`)
+  return {
+    users: {
+      cody: users[0],
+      murphy: users[1]
+    },
+    cars
+  }
+=======
     Car.create({
       year: 2021,
       make: "Mercedes",

@@ -3,6 +3,22 @@ const db = require('../db')
 const { STRING, INTEGER, DECIMAL } = Sequelize.DataTypes
 
 const Car = db.define('cars', {
+  vin: {
+    type: STRING,
+    allowNull: false,
+  },
+  trim: {
+    type: STRING,
+    allowNull: false,
+  },
+  bodyType: {
+    type: STRING,
+    allowNull: false,
+  },
+  mileage: {
+    type: STRING,
+    allowNull: false,
+  },
   year: {
     type: INTEGER,
     allowNull: false,
@@ -27,7 +43,7 @@ const Car = db.define('cars', {
     }
   },
   price: {
-    type: DECIMAL,
+    type: STRING,
     allowNull: false,
   },
   imageUrl: {
@@ -44,7 +60,7 @@ const Car = db.define('cars', {
       notEmpty: true
     }
   },
-  origin: {
+  city: {
     type: STRING,
     allowNull: false,
     validate: {
@@ -54,12 +70,9 @@ const Car = db.define('cars', {
   qty: {
     type: INTEGER,
     allowNull: false,
-    validate: {
-      notEmpty: true,
-      min: 0
-    },
     defaultValue: 1,
-  }
+  },
+
 })
 
 module.exports = Car
