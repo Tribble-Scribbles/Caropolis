@@ -13,8 +13,8 @@ const token = 'ZrQEPSkKc3VuZzk2a2ltQGdtYWlsLmNvbQ=='
 // Apparently there is a max of 10,000 api calls with this api for free but I doubt we'll
 // run this that many times (Just a headsup)
 
-async function createCars(){
-  const {data: carsData} = await axios.get('https://auto.dev/api/listings?apikey=ZrQEPSkKc3VuZzk2a2ltQGdtYWlsLmNvbQ==&make=Make&model=Model%203&category=supercar&radius=5000&page=1')
+async function createCars(page = 1){
+  const {data: carsData} = await axios.get(`https://auto.dev/api/listings?apikey=ZrQEPSkKc3VuZzk2a2ltQGdtYWlsLmNvbQ==&make=Make&model=Model%203&category=supercar&radius=5000&page=${page}`)
   const filtered = carsData.records.map(car => {
     let carObj = {
       vin: car.vin,
@@ -49,7 +49,7 @@ async function seed() {
   // Creating Users
   const users = await Promise.all([
 
-    User.create({  
+    User.create({
       password: '123',
       firstName: 'Cody',
       lastName: 'Test',
@@ -63,8 +63,12 @@ async function seed() {
     })
   ])
 
-  
-  const cars = await createCars();
+  let cars = [];
+
+  //Change conditional page value (page < 4) to seed more or less than 4 pages of data
+  for(let page = 1; page < 5; page++){
+    cars = [...cars, ...await createCars(page)];
+  }
 
   await Promise.all(cars.map(car => {
     return Car.create(car)
