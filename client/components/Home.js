@@ -2,15 +2,15 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const Home = () => {
-  const { username } = useSelector((state) => {
+  const { email } = useSelector((state) => {
     return {
-      username: state.auth.username,
+      email: state.auth.email,
     };
   });
 
   return (
     <div>
-      <h3>Welcome, {username}</h3>
+      <h3>Welcome, {email}</h3>
     </div>
   );
 };
