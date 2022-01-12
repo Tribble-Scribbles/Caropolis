@@ -1,22 +1,27 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCar } from "../store/car";
+import { useParams } from 'react-router-dom'
 
 const SingleCar = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
   const { car } = useSelector((state) => {
     return {
       car: state.car,
     };
   });
-
-  const dispatch = useDispatch();
-
+  
   useEffect(() => {
-    dispatch(fetchCar());
+    dispatch(fetchCar(id));
   }, []);
+
+
+  
 
   return (
     <div>
+      <h1>HELLO WORLD{car.id || 'none'}</h1>
       <h3>
         {car.make} {car.model}
       </h3>

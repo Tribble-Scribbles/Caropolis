@@ -4,6 +4,8 @@ import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
 import Home from './components/Home';
+import SingleCar from './components/SingleCar';
+import AllCars from './components/AllCars';
 import {me} from './store'
 
 /**
@@ -25,9 +27,12 @@ class Routes extends Component {
           </Switch>
         ) : (
           <Switch>
-            <Route path='/' exact component={LogIn} />
+            <Route exact path='/' exact component={LogIn} />
             <Route path="/login" component={LogIn} />
             <Route path="/signup" component={SignUp} />
+            <Route exact path='/cars' component={AllCars} />
+            <Route exact path="/cars/:id" component={SingleCar} />
+
           </Switch>
         )}
       </div>
