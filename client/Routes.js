@@ -21,12 +21,13 @@ class Routes extends Component {
 
     return (
       <div>
-        {isLoggedIn ? (
+        {/* {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
           </Switch>
-        ) : (
+        ) : ( */}
           <Switch>
+            <Route path="/home" component={Home} />
             <Route exact path='/' exact component={LogIn} />
             <Route path="/login" component={LogIn} />
             <Route path="/signup" component={SignUp} />
@@ -34,7 +35,7 @@ class Routes extends Component {
             <Route exact path="/cars/:id" component={SingleCar} />
 
           </Switch>
-        )}
+        
       </div>
     )
   }

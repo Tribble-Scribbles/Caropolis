@@ -15,9 +15,8 @@ const SingleCar = () => {
   useEffect(() => {
     dispatch(fetchCar(id));
   }, []);
-
-
   
+  console.log(car)
 
   return (
     <div>
