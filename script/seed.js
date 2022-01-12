@@ -14,7 +14,7 @@ const token = 'ZrQEPSkKc3VuZzk2a2ltQGdtYWlsLmNvbQ=='
 // run this that many times (Just a headsup)
 
 async function createCars(){
-  const {data: carsData} = await axios.get('https://auto.dev/api/listings?apikey=ZrQEPSkKc3VuZzk2a2ltQGdtYWlsLmNvbQ==&make=Make&model=Model%203&category=supercar&radius=5000&page=1')
+  const {data: carsData} = await axios.get('https://auto.dev/api/listings?apikey=ZrQEPSkKc3VuZzk2a2ltQGdtYWlsLmNvbQ==&make=Make&model=Model%203&category=supercar&radius=5000&page=4')
   const filtered = carsData.records.map(car => {
     let carObj = {
       vin: car.vin,
