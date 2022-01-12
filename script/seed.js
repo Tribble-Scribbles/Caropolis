@@ -27,9 +27,12 @@ async function createCars(){
     }
     return carObj;
   }).filter((car) => {
-    if(car.color !== null || car.color !== '/'){
-      return car
+    if(car.color === null){
+      return false
+    }else if(car.color.length <= 2){
+      return false
     }
+    return true
   })
 
   return cars;
@@ -56,9 +59,9 @@ async function seed() {
       email: 'murphy123@mail.com'
     }),
   ])
-  const filteredCars = await createCars();
+  const cars = await createCars();
 
-  await Promise.all(filteredCars.map(car => {
+  await Promise.all(cars.map(car => {
     return Car.create(car)
   }))
 
