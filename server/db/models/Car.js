@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const { STRING, INTEGER, DECIMAL } = Sequelize.DataTypes
+const { STRING, INTEGER } = Sequelize.DataTypes
 
 const Car = db.define('cars', {
   vin: {
@@ -72,7 +72,20 @@ const Car = db.define('cars', {
     allowNull: false,
     defaultValue: 1,
   },
-
+  condition: {
+    type: STRING,
+    allowNull: false,
+    defaultValue: "Used"
+  },
+  dealerName:{
+    type: STRING,
+    allowNull: false,
+    defaultValue: "Caropolis"
+  },
+  state:{
+    type: STRING,
+    allowNull: false,
+  }
 })
 
 module.exports = Car

@@ -5,8 +5,9 @@ import LogIn from './components/LogIn';
 import Home from './components/Home';
 import SingleCar from './components/SingleCar';
 import AllCars from './components/AllCars';
+import UserProfile from './components/UserProfile';
 import { connect } from 'react-redux';
-import { me } from './store'
+import { me } from './store';
 
 
 class Routes extends Component {
@@ -31,8 +32,9 @@ class Routes extends Component {
           <Route path="/signup" component={SignUp} />
           <Route exact path="/cars" component={AllCars} />
           <Route exact path="/cars/:id" component={SingleCar} />
+          <Route exact path="/account" component={UserProfile} />
         </Switch>
-        // )}
+        {/* )} */}
       </div>
     );
   }

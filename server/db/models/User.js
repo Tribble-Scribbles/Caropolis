@@ -3,7 +3,7 @@ const db = require('../db')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 // const axios = require('axios');
-const { STRING } = Sequelize.DataTypes
+const { STRING, BOOLEAN } = Sequelize.DataTypes
 
 const SALT_ROUNDS = 5;
 
@@ -40,6 +40,11 @@ const User = db.define('users', {
       notEmpty: true,
       isEmail: true
     }
+  },
+  isAdmin: {
+    type: BOOLEAN,
+    allowNull: false,
+    defaultValue: false
   }
 })
 
