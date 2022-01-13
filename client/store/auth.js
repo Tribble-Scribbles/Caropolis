@@ -11,7 +11,11 @@ const SET_AUTH = 'SET_AUTH'
 /**
  * ACTION CREATORS
  */
-const setAuth = auth => ({type: SET_AUTH, auth})
+const setAuth = (auth, loginStatus) => ({
+  type: SET_AUTH,
+  auth,
+  loginStatus
+})
 
 /**
  * THUNK CREATORS
@@ -24,7 +28,12 @@ export const me = () => async dispatch => {
         authorization: token
       }
     })
-    return dispatch(setAuth(res.data))
+
+    if(res.data.id){
+      return dispatch(setAuth(res.data, true))
+    }else{
+      return dispatch(setAuth(res.data, false))
+    }
   }
 }
 
@@ -59,13 +68,10 @@ export const logIn = (email, password) => async dispatch => {
   }
 }
 
-export const logout = () => {
+export const logout = () => dispatch => {
   window.localStorage.removeItem(TOKEN)
   history.push('/login')
-  return {
-    type: SET_AUTH,
-    auth: {}
-  }
+  return dispatch(setAuth({}, false))
 }
 
 /**
@@ -74,7 +80,7 @@ export const logout = () => {
 export default function(state = {}, action) {
   switch (action.type) {
     case SET_AUTH:
-      return action.auth
+      return {...action.auth, loginStatus: action.loginStatus}
     default:
       return state
   }
