@@ -8,13 +8,14 @@ import AllCars from './components/AllCars';
 import { connect } from 'react-redux';
 import { me } from './store'
 
+
 class Routes extends Component {
   componentDidMount() {
-    this.props.loadInitialData()
+    this.props.loadInitialData();
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const { isLoggedIn } = this.props;
 
     return (
       <div>
@@ -23,18 +24,17 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
           </Switch>
         ) : ( */}
-          <Switch>
-            <Route path="/home" component={Home} />
-            <Route exact path='/' exact component={LogIn} />
-            <Route path="/login" component={LogIn} />
-            <Route path="/signup" component={SignUp} />
-            <Route exact path='/cars' component={AllCars} />
-            <Route exact path="/cars/:id" component={SingleCar} />
-
-          </Switch>
+        <Switch>
+          <Route path="/home" component={Home} />
+          <Route exact path="/" exact component={LogIn} />
+          <Route path="/login" component={LogIn} />
+          <Route path="/signup" component={SignUp} />
+          <Route exact path="/cars" component={AllCars} />
+          <Route exact path="/cars/:id" component={SingleCar} />
+        </Switch>
         // )}
       </div>
-    )
+    );
   }
 }
 
@@ -44,16 +44,17 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     loadInitialData() {
-      dispatch(me())
-    }
-  }
-}
+      dispatch(me());
+    },
+  };
+};
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
+
 export default withRouter(connect(mapState, mapDispatch)(Routes))
 
 
