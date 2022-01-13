@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {logout} from '../store'
+import { Link } from 'react-router-dom';
 
 import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+import { Button as MUIButton } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -37,7 +37,7 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => {
     return {
-      isLoggedIn: !!state.auth.id
+      loginStatus: state.auth.loginStatus
     }
   })
 
@@ -46,68 +46,42 @@ export default function Navbar() {
       <CssBaseline />
       <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
           <Toolbar className={classes.toolbar}>
-            <Link underline="none" variant="button" color="inherit" href="/home" className={classes.toolbarTitle}>
-              <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-                Caropolis
-              </Typography>
-            </Link>
+            <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+                  Caropolis
+            </Typography>
 
             <nav>
-              <Link variant="button" color="textPrimary" href="/home" className={classes.link}>
+              <MUIButton component={Link} to="/home" color="inherit" className={classes.link}>
                 Home
-              </Link>
-              <Link variant="button" color="textPrimary" href="/listings" className={classes.link}>
+              </MUIButton>
+
+              <MUIButton component={Link} to="/cars" color="inherit" className={classes.link}>
                 Listings
-              </Link>
-              <Link variant="button" color="textPrimary" href="/account" className={classes.link}>
+              </MUIButton>
+
+              <MUIButton component={Link} to="/account" color="inherit" className={classes.link}>
                 Account
-              </Link>
+              </MUIButton>
+
+              <MUIButton component={Link} to="/signup" color="inherit" className={classes.link}>
+                Sign Up
+              </MUIButton>
+              {
+                isLoggedIn.loginStatus ? (
+                  <MUIButton color="primary" component={Link} to="/home" variant="outlined" className={classes.link} onClick={() => {
+                  dispatch(logout())
+                    }}>
+                    Logout
+                  </MUIButton>
+                ) : (
+                  <MUIButton color="primary" component={Link} to="/login" variant="outlined" className={classes.link} >
+                    Login
+                  </MUIButton>
+                )
+              }
             </nav>
-            {/* {
-              isLoggedIn ? (
-                <Button href="/" color="primary" variant="outlined" className={classes.link} onClick={() => {dispatch(logout())}}>
-                  Logout
-                  {console.log(isLoggedIn)}
-                </Button>
-              ) : (
-                <Button href="/login" color="primary" variant="outlined" className={classes.link}>
-                  Login
-                  {console.log(isLoggedIn)}
-                </Button>
-              )
-            } */}
-            <Button href="/" color="primary" variant="outlined" className={classes.link} onClick={() => {dispatch(logout())}}>
-              Logout
-            </Button>
-            <Button href="/login" color="primary" variant="outlined" className={classes.link}>
-              Login
-            </Button>
           </Toolbar>
         </AppBar>
     </React.Fragment>
   )
 }
-/* <nav>
-  {isLoggedIn ? (
-    <div>
-      <Link to="/home">Home</Link>
-      <a href="#" onClick={handleClick}>
-        Logout
-      </a>
-    </div>
-  ) : (
-    <div>
-      <Link to="/login">Login</Link>
-      <Link to="/signup">Sign Up</Link>
-    </div>
-  )}
-</nav>
-<hr /> */
-
-// const mapDispatch = dispatch => {
-//   return {
-//     handleClick() {
-//       dispatch(logout())
-//     }
-//   }
-// }

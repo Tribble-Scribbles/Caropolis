@@ -1,16 +1,14 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import SignUp from "./components/SignUp";
-import LogIn from "./components/LogIn";
-import Home from "./components/Home";
-import SingleCar from "./components/SingleCar";
-import AllCars from "./components/AllCars";
-import { me } from "./store";
+import React, { Component } from 'react'
+import { withRouter, Route, Switch, Redirect} from 'react-router-dom'
+import SignUp from './components/SignUp';
+import LogIn from './components/LogIn';
+import Home from './components/Home';
+import SingleCar from './components/SingleCar';
+import AllCars from './components/AllCars';
+import { connect } from 'react-redux';
+import { me } from './store'
 
-/**
- * COMPONENT
- */
+
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
@@ -34,21 +32,17 @@ class Routes extends Component {
           <Route exact path="/cars" component={AllCars} />
           <Route exact path="/cars/:id" component={SingleCar} />
         </Switch>
+        // )}
       </div>
     );
   }
 }
 
-/**
- * CONTAINER
- */
-const mapState = (state) => {
+const mapState = state => {
   return {
-    // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
-    // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-    isLoggedIn: !!state.auth.id,
-  };
-};
+    isLoggedIn: !!state.auth.id
+  }
+}
 
 const mapDispatch = (dispatch) => {
   return {
@@ -60,4 +54,37 @@ const mapDispatch = (dispatch) => {
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes));
+
+export default withRouter(connect(mapState, mapDispatch)(Routes))
+
+
+// Refactored hook version but it is missing withRouter implementation
+
+// const Routes = () => {
+//   // const isLoggedIn = useSelector((state) => {
+//   //   return {
+//   //     loginStatus: state.auth.loginStatus
+//   //   }
+//   // })
+
+//   return (
+//     <div>
+//       {/* {isLoggedIn ? (
+//         <Switch>
+//           <Route path="/home" component={Home}/>
+//           <Redirect to="/home" component={Home}/>
+//         </Switch>
+//       ) : ( */}
+//         <Switch>
+//           <Route exact path='/' exact component={Home} />
+//           <Route exact path="/home" component={Home} />
+//           <Route exact path="/login" component={LogIn} />
+//           <Route exact path="/signup" component={SignUp} />
+//           <Route exact path='/cars' component={AllCars} />
+//           <Route exact path="/cars/:id" component={SingleCar} />
+//         </Switch>
+//       {/* )} */}
+//     </div>
+//   )
+// }
+// export default Routes;
