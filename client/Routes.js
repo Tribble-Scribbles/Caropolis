@@ -32,7 +32,7 @@ class Routes extends Component {
             <Route exact path="/cars/:id" component={SingleCar} />
 
           </Switch>
-
+        // )}
       </div>
     )
   }

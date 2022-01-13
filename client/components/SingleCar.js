@@ -11,21 +11,34 @@ const SingleCar = () => {
       car: state.car,
     };
   });
-  
+  const dealerName = "California Motors Direct"
+  const state = "CA"
+  const condition = 'used'
+
   useEffect(() => {
     dispatch(fetchCar(id));
   }, []);
-
-
   
+  console.log(car)
 
   return (
     <div>
-      <h1>HELLO WORLD{car.id || 'none'}</h1>
-      <h3>
-        {car.make} {car.model}
-      </h3>
-      <img className="image-car" src={car.imageUrl} />
+      <div id="single-car-info">
+        <h3>{car.year} {car.make} {car.model}</h3>
+        <h3>{car.price}</h3>
+        <img className="single-car" src={car.imageUrl} />
+      </div>
+      <div id="right-of-car">
+        <h3>Sold by: {dealerName}</h3>
+        <h4>Located in: {car.city}, {state}</h4>
+        <h4>Condition: {condition}</h4>
+        <h4>Mileage: {car.mileage}</h4>
+        <h4>Body Style: {car.bodyType}</h4>
+        <h4>Exterior color: {car.color}</h4>
+        <h4>VIN: {car.vin}</h4>
+        <h4>Trim: {car.trim}</h4>
+        <button>Add To Cart</button>
+      </div>
     </div>
   );
 };
