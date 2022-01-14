@@ -123,7 +123,12 @@ const AllCars = () => {
                   <Typography>{car.price}</Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" color="primary">
+                  <Button
+                    size="small"
+                    color="primary"
+                    component={Link}
+                    to={`/cars/${car.id}`}
+                  >
                     VIEW
                   </Button>
                   <Button size="small" color="primary">
