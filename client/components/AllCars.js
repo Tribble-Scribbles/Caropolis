@@ -93,7 +93,7 @@ const AllCars = () => {
             EXPERIENCE YOUR DREAM CAR TODAY
           </Typography>
           <div className={classes.buttons}>
-            <Grid container spacing={2} justify="center">
+            <Grid container spacing={2} justifyContent="center">
               <Grid item>
                 <Button variant="contained" color="primary">
                   Filter
@@ -123,7 +123,12 @@ const AllCars = () => {
                   <Typography>{car.price}</Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" color="primary">
+                  <Button
+                    size="small"
+                    color="primary"
+                    component={Link}
+                    to={`/cars/${car.id}`}
+                  >
                     VIEW
                   </Button>
                   <Button size="small" color="primary">
