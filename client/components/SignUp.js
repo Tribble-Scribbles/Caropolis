@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux'
 import { signUp } from "../store";
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { useStyles as loginStyles } from './LogIn'
 
 import Avatar from '@material-ui/core/Avatar';
@@ -16,16 +16,21 @@ import Typography from '@material-ui/core/Typography';
 
 export default function SignUp() {
   const importedStyle = loginStyles();
+  const history = useHistory();
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
-  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [errorStatus, setErrorStatus] = useState(false)
   const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(signUp(username, password, firstName, lastName, email))
+    if(!email.includes("@")){
+      setErrorStatus(true)
+    }
+    dispatch(signUp(password, firstName, lastName, email))
+    history.push("/login")
   }
 
   return (
@@ -42,13 +47,13 @@ export default function SignUp() {
           </Typography>
 
           <form className={importedStyle.form} noValidate onSubmit={handleSubmit}>
-            <Grid container spacing={1}>
-              <Grid item xs={12} sm={6}>
+            <Grid container spacing={1} >
+              <Grid item xs={12} sm={6} >
                 <TextField
                   autoComplete="fname"
                   name="firstName"
                   variant="outlined"
-                  margin="none"
+                  margin="normal"
                   required
                   fullWidth
                   id="firstName"
@@ -56,13 +61,12 @@ export default function SignUp() {
                   value={firstName}
                   autoFocus
                   onChange={(e) => setFirstName(e.target.value)}
-                  className={importedStyle.formItem}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   variant="outlined"
-                  margin="none"
+                  margin="normal"
                   required
                   fullWidth
                   id="lastName"
@@ -71,22 +75,6 @@ export default function SignUp() {
                   value={lastName}
                   autoComplete="lname"
                   onChange={(e) => setLastName(e.target.value)}
-                  className={importedStyle.formItem}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="username"
-                  label="Username"
-                  type="username"
-                  id="username"
-                  value={username}
-                  autoComplete="username"
-                  onChange={(e) => setUsername(e.target.value)}
-                  className={importedStyle.formItem}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -97,13 +85,14 @@ export default function SignUp() {
                   id="email"
                   label="Email Address"
                   name="email"
+                  error={errorStatus}
+                  helperText={errorStatus ? "Invalid Email" : ""}
                   value={email}
                   autoComplete="email"
                   onChange={(e) => setEmail(e.target.value)}
-                  className={importedStyle.formItem}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} >
                 <TextField
                   variant="outlined"
                   required
@@ -115,7 +104,6 @@ export default function SignUp() {
                   value={password}
                   autoComplete="current-password"
                   onChange={(e) => setPassword(e.target.value)}
-                  className={importedStyle.formItem}
                 />
               </Grid>
             </Grid>
@@ -128,12 +116,10 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link to="/login" component={RouterLink} variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
+            <Grid item>
+              <Link to="/login" component={RouterLink} variant="body2">
+                Already have an account? Sign in
+              </Link>
             </Grid>
           </form>
 
