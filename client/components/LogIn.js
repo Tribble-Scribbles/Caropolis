@@ -1,15 +1,12 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { logIn } from '../store'
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -22,12 +19,12 @@ export const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: 'url(https://source.unsplash.com/random/?supercar)',
     backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    backgroundColor:
+      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -57,13 +54,19 @@ export const useStyles = makeStyles((theme) => ({
 
 export default function LogIn() {
   const classes = useStyles();
+  const history = useHistory();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errorStatus, setErrorStatus] = useState(false)
   const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if(!email.includes("@")){
+      setErrorStatus(true)
+    }
     dispatch(logIn(email, password))
+    history.push("/home")
   }
 
   return (
@@ -90,6 +93,8 @@ export default function LogIn() {
               name="email"
               value={email}
               autoComplete="email"
+              error={errorStatus}
+              helperText={errorStatus ? "Invalid Email" : ""}
               autoFocus
               className={classes.formItem}
               onChange={(e) => setEmail(e.target.value)}
@@ -117,17 +122,10 @@ export default function LogIn() {
             >
               Login
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link to="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link to="/signup" component={RouterLink} variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
+            <Grid item >
+              <Link to="/signup" component={RouterLink} variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
             </Grid>
           </form>
 
