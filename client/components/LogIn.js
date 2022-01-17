@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { logIn } from '../store'
-import { Link as RouterLink, useHistory } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -54,7 +54,6 @@ export const useStyles = makeStyles((theme) => ({
 
 export default function LogIn() {
   const classes = useStyles();
-  const history = useHistory();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorStatus, setErrorStatus] = useState(false)
@@ -66,7 +65,6 @@ export default function LogIn() {
       setErrorStatus(true)
     }
     dispatch(logIn(email, password))
-    history.push("/home")
   }
 
   return (

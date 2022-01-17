@@ -43,7 +43,7 @@ export const authenticate = (email, password, method) => async dispatch => {
     window.localStorage.setItem(TOKEN, res.data.token)
     dispatch(me())
   } catch (authError) {
-    return dispatch(setAuth({error: authError}))
+    return dispatch(setAuth({error: authError}, false))
   }
 }
 
@@ -52,8 +52,9 @@ export const signUp = (password, firstName, lastName, email) => async dispatch =
     const res = await axios.post('/auth/signup', {password, firstName, lastName, email})
     window.localStorage.setItem(TOKEN, res.data.token)
     dispatch(me())
+    history.push("/login")
   } catch (authError) {
-    return dispatch(setAuth({error: authError}))
+    return dispatch(setAuth({error: authError}, false))
   }
 }
 
@@ -62,8 +63,9 @@ export const logIn = (email, password) => async dispatch => {
     const res = await axios.post('/auth/login', {email, password})
     window.localStorage.setItem(TOKEN, res.data.token)
     dispatch(me())
+    history.push("/home")
   } catch (authError) {
-    return dispatch(setAuth({error: authError}))
+    return dispatch(setAuth({error: authError}, false))
   }
 }
 
@@ -79,7 +81,7 @@ export const logout = () => dispatch => {
 export default function(state = {}, action) {
   switch (action.type) {
     case SET_AUTH:
-      return {...action.auth, loginStatus: action.loginStatus}
+      return {...action.auth, loginStatus: action.loginStatus ? action.loginStatus : false}
     default:
       return state
   }

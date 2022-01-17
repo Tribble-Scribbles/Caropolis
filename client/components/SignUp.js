@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux'
 import { signUp } from "../store";
-import { Link as RouterLink, useHistory } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { useStyles as loginStyles } from './LogIn'
 
 import Avatar from '@material-ui/core/Avatar';
@@ -16,7 +16,6 @@ import Typography from '@material-ui/core/Typography';
 
 export default function SignUp() {
   const importedStyle = loginStyles();
-  const history = useHistory();
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -30,7 +29,6 @@ export default function SignUp() {
       setErrorStatus(true)
     }
     dispatch(signUp(password, firstName, lastName, email))
-    history.push("/login")
   }
 
   return (
