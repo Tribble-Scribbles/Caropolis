@@ -13,8 +13,9 @@ const token = 'ZrQEPSkKc3VuZzk2a2ltQGdtYWlsLmNvbQ=='
 // Apparently there is a max of 10,000 api calls with this api for free but I doubt we'll
 // run this that many times (Just a headsup)
 
-async function createCars(page = 1){
-  const {data: carsData} = await axios.get(`https://auto.dev/api/listings?apikey=ZrQEPSkKc3VuZzk2a2ltQGdtYWlsLmNvbQ==&make=Make&model=Model%203&category=supercar&radius=5000&page=${page}`)
+async function createCars(page = 1, category = "supercar", make = "Make", model = "Model", radius = 5000){
+  const {data: carsData} = await axios.get(`https://auto.dev/api/listings?apikey=${token}&make=${make}&model=${model}%203&category=${category}&radius=${radius}&page=${page}`
+  )
   const filtered = carsData.records.map(car => {
     let carObj = {
       vin: car.vin,
@@ -23,7 +24,7 @@ async function createCars(page = 1){
       year: car.year,
       make: car.make,
       model: car.model,
-      price: car.price,
+      price: parseInt(car.price.slice(1).split(',').join('')),
       mileage: car.mileage === 'New' ? '0 Miles' : car.mileage,
       city: car.city,
       imageUrl: car.primaryPhotoUrl,
@@ -82,7 +83,7 @@ async function seed() {
       year: 1999,
       make: 'toyota',
       model: 'camry',
-      price: '5000',
+      price: 5000,
       mileage: '25000 miles',
       city: 'Simi Valley',
       state: 'CA',
@@ -97,7 +98,7 @@ async function seed() {
       year: 2010,
       make: 'toyota',
       model: 'celica',
-      price: '50000',
+      price: 5000,
       mileage: '2500 miles',
       city: 'Simi Valley',
       state: 'CA',
@@ -112,7 +113,7 @@ async function seed() {
       year: 2020,
       make: 'toyota',
       model: 'corolla',
-      price: '55000',
+      price: 55000,
       mileage: '2500 miles',
       city: 'Simi Valley',
       state: 'CA',

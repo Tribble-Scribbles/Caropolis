@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { Button as MUIButton } from '@material-ui/core';
+import ShopTwoOutlinedIcon from '@material-ui/icons/ShopTwoOutlined';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -59,13 +60,22 @@ export default function Navbar() {
                 Listings
               </MUIButton>
 
-              <MUIButton component={Link} to="/account" color="inherit" className={classes.link}>
-                Account
+              {
+                isLoggedIn.loginStatus ? (
+                  <MUIButton component={Link} to="/account" color="inherit" className={classes.link}>
+                    Account
+                  </MUIButton>
+                ) : (
+                  <MUIButton component={Link} to="/signup" color="inherit" className={classes.link}>
+                    Sign Up
+                  </MUIButton>
+                )
+              }
+
+              <MUIButton component={Link} to="/cart" color="inherit" className={classes.link}>
+                <ShopTwoOutlinedIcon />
               </MUIButton>
 
-              <MUIButton component={Link} to="/signup" color="inherit" className={classes.link}>
-                Sign Up
-              </MUIButton>
               {
                 isLoggedIn.loginStatus ? (
                   <MUIButton color="primary" component={Link} to="/home" variant="outlined" className={classes.link} onClick={() => {

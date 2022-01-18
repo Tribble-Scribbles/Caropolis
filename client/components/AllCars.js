@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchCars } from "../store/cars";
+import SingleCar from "./SingleCar"
 
 import {
   Typography,
@@ -123,14 +124,13 @@ const AllCars = () => {
                   <Typography>{car.price}</Typography>
                 </CardContent>
                 <CardActions>
-                  <Button
-                    size="small"
-                    color="primary"
-                    component={Link}
-                    to={`/cars/${car.id}`}
-                  >
-                    VIEW
-                  </Button>
+                  <SingleCar
+                    // size="small"
+                    // color="primary"
+                    // component={Link}
+                    // to={`/cars/${car.id}`}
+                    carId={car.id}
+                  />
                   <Button size="small" color="primary">
                     Add to Cart
                   </Button>
