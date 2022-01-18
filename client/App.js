@@ -8,29 +8,28 @@ import Routes from './Routes'
 
 
 const App = () => {
-  let [cart, setCart] = useState([])
+  // let [cart, setCart] = useState([])
   
-  let localCart = localStorage.getItem('cart')
+  // let localCart = localStorage.getItem('cart')
   
-  const addItem = (item) => {
-    const cartCopy = [...cart]
-    cartCopy.push(item)
-    setCart(cartCopy)
+  // const addItem = (item) => {
+  //   const cartCopy = [...cart]
+  //   cartCopy.push(item)
+  //   setCart(cartCopy)
 
-    const stringCart = JSON.stringify(cartCopy)
-    localStorage.setItem("cart", stringCart)
-  }
-  const removeItem = (itemId) => {}
+  //   const stringCart = JSON.stringify(cartCopy)
+  //   localStorage.setItem("cart", stringCart)
+  // }
 
-  useEffect(() => {
-    localCart = JSON.parse(localCart)
-    if(localCart) setCart(localCart)
-  }, [])
+  // useEffect(() => {
+  //   localCart = JSON.parse(localCart)
+  //   if(localCart) setCart(localCart)
+  // }, [])
 
   return (
     <div>
       <Navbar />
-      <Routes  cartItems={cart} addItem={addItem} removeItem={removeItem}/>
+      <Routes />
     </div>
   )
 }
