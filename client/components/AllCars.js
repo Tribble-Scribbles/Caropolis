@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchCars } from "../store/cars";
 import SingleCar from "./SingleCar"
+import { addToCart } from "../store/cart";
 
 import {
   Typography,
@@ -131,7 +132,7 @@ const AllCars = () => {
                     // to={`/cars/${car.id}`}
                     carId={car.id}
                   />
-                  <Button size="small" color="primary">
+                  <Button onClick={() => dispatch(addToCart(car))}size="small" color="primary">
                     Add to Cart
                   </Button>
                 </CardActions>
