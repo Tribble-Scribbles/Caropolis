@@ -60,11 +60,6 @@ const AllCars = () => {
       auth: state.auth
     };
   });
-  
-  // let authId = null
-  // if(auth !== {}) {
-  //   authId = auth.id
-  // }
 
   const dispatch = useDispatch();
 

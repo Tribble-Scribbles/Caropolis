@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCart, clearCart, removeFromCart } from '../store/cart';
 
-
 const Cart = () => {
   const dispatch = useDispatch()
   const { cart, auth } = useSelector((state) => {

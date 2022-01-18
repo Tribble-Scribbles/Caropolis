@@ -41,24 +41,20 @@ export const fetchCart = (auth) => {
         if(cart === null) {
           localStorage.setItem(`cart-${auth.id}`, JSON.stringify([]))
           dispatch(_setCart([]))
-          console.log('logged in cart created')
           return
         }
         dispatch(_setCart(cart))
-        console.log('dispatched setCart as logged in user')
         return
       } else if(auth === {}) {
         let cart = localStorage.getItem("guestCart")
         cart = JSON.parse(cart)
-        console.log('guestCart from guest', cart)
+
         if(cart === null) {
           localStorage.setItem("guestCart", JSON.stringify([]))
           cart = localStorage.getItem("guestCart")
           cart = JSON.parse(cart)
-          console.log('guest cart created')
         }
         dispatch(_setCart(cart))
-        console.log('dispatched setCart as guest', cart)
       }
     } catch (error) {
       console.error(error)
@@ -78,13 +74,11 @@ export const addToCart = (item, auth) => {
           dispatch(_setCart([]))
           cart = localStorage.getItem(`cart-${auth.id}`)
           cart = JSON.parse(cart)
-          console.log('logged in cart created in addtocart', cart)
         }
         const cartCopy = [...cart]
         cartCopy.push(item)
         localStorage.setItem(`cart-${auth.id}`, JSON.stringify(cartCopy))
         dispatch(_addItem(item))
-        console.log('dispatched addItem as logged in user ')
         return
       } else if(auth === {}) {
         let cart = localStorage.getItem("guestCart")
@@ -94,7 +88,6 @@ export const addToCart = (item, auth) => {
           cart = localStorage.getItem("guestCart")
           cart = JSON.parse(cart)
           dispatch(_setCart(cart))
-          console.log('made a guest cart with addToCart')
         }
         dispatch(_addItem(item))
         const cartCopy = [...cart]
