@@ -17,8 +17,6 @@ const Cart = () => {
   const taxPrice = itemsPrice * 0.075;
   const shippingPrice = itemsPrice > 250000 ? 500 : 7500;
   const totalPrice = itemsPrice + taxPrice + shippingPrice;
-
-  console.log('CART', cart)
   
   return (
     <div id="cart-main">

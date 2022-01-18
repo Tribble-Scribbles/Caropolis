@@ -100,7 +100,7 @@ export default function SingleCar(props) {
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={() => {dispatch(addToCart(car))}} color="primary">
+          <Button onClick={() => dispatch(addToCart(car))} color="primary">
             Add To Cart
           </Button>
           <Button onClick={handleClose} color="primary">

@@ -65,9 +65,7 @@ export const addToCart = item => {
       cartCopy.push(item)
       localStorage.setItem("cart", JSON.stringify(cartCopy))
       dispatch(_addItem(item))
-      console.log('ADDED TO CART?')
     } catch (error) {
-      console.log('did not add to cart')
       next(error)
     }
   }
