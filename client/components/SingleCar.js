@@ -40,9 +40,10 @@ export default function SingleCar(props) {
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const { car } = useSelector((state) => {
+  const { car, auth } = useSelector((state) => {
     return {
       car: state.car,
+      auth: state.auth
     };
   });
 
@@ -100,7 +101,7 @@ export default function SingleCar(props) {
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={() => dispatch(addToCart(car))} color="primary">
+          <Button onClick={() => dispatch(addToCart(car, auth))} color="primary">
             Add To Cart
           </Button>
           <Button onClick={handleClose} color="primary">
