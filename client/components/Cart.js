@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCart, clearCart, removeFromCart } from '../store/cart';
+import { useSnackbar } from 'notistack';
 
 const Cart = () => {
   const dispatch = useDispatch()
+  const { enqueueSnackbar } = useSnackbar();
+
   const { cart, auth } = useSelector((state) => {
     return {
       cart: state.cart,
@@ -13,6 +16,7 @@ const Cart = () => {
   useEffect(() => {
     dispatch(fetchCart(auth))
   }, [])
+
   const itemsPrice = cart.reduce((accum, curr) => accum + curr.price, 0)
   const taxPrice = itemsPrice * 0.075;
   const shippingPrice = itemsPrice > 250000 ? 500 : 7500;
