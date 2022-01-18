@@ -1,11 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-<<<<<<< HEAD
-import { fetchCart, clearCart, removeFromCart } from '../store/cart';
-import { useSnackbar } from 'notistack';
-=======
 import { fetchCart, clearCart, removeFromCart, mergeCart } from '../store/cart';
->>>>>>> 1bb32076f5072c9403046580c97eb50443183152
 
 const Cart = () => {
   const dispatch = useDispatch()
@@ -30,7 +25,7 @@ const Cart = () => {
     <div id="cart-main">
       <h2>Cart Items</h2>
       <div>{cart.length === 0 && <div>Cart is Empty</div>}</div>
-      
+
       <div>{auth.id > 0 && <button onClick={() => dispatch(mergeCart(auth))}>Merge Guest Cart</button>}</div>
 
       {cart.length !== 0 && (
@@ -68,7 +63,7 @@ const Cart = () => {
             <button onClick={() => dispatch(clearCart(auth))}>
               Clear Cart
             </button>
-            
+
           </div>
         </>
       )}
