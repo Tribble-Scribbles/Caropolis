@@ -5,19 +5,20 @@ import { fetchCart, clearCart, removeFromCart } from '../store/cart';
 
 const Cart = () => {
   const dispatch = useDispatch()
-  const { cart } = useSelector((state) => {
+  const { cart, auth } = useSelector((state) => {
     return {
-      cart: state.cart
+      cart: state.cart,
+      auth: state.auth
     }
   })
   useEffect(() => {
-    dispatch(fetchCart())
+    dispatch(fetchCart(auth))
   }, [])
   const itemsPrice = cart.reduce((accum, curr) => accum + curr.price, 0)
   const taxPrice = itemsPrice * 0.075;
   const shippingPrice = itemsPrice > 250000 ? 500 : 7500;
   const totalPrice = itemsPrice + taxPrice + shippingPrice;
-  
+
   return (
     <div id="cart-main">
       <h2>Cart Items</h2>
@@ -29,7 +30,7 @@ const Cart = () => {
             return (
               <div key={item.id}>
                 <h2>{item.model}</h2>
-                <button onClick={() => dispatch(removeFromCart(item.id))}>x</button>
+                <button onClick={() => dispatch(removeFromCart(item.id, auth))}>x</button>
               </div>
             )
           })}
@@ -54,7 +55,7 @@ const Cart = () => {
             <button onClick={() => alert('Implement Checkout')}>
               Checkout
             </button>
-            <button onClick={() => dispatch(clearCart())}>
+            <button onClick={() => dispatch(clearCart(auth))}>
               Clear Cart
             </button>
           </div>

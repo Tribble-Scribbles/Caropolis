@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 const SET_CART = 'SET_CART'
 const ADD_ITEM = 'ADD_ITEM'
 const REMOVE_ITEM = 'REMOVE_ITEM'
@@ -33,63 +31,109 @@ export const _clearCart = emptyCart => {
   }
 }
 
-export const fetchCart = () => {
+export const fetchCart = (auth) => {
   return async dispatch => {
     try {
-      let cart = localStorage.getItem("cart")
-      cart = JSON.parse(cart)
-      if(cart === null) {
-        const x = []
-        localStorage.setItem("cart", JSON.stringify(x))
-        dispatch(_setCart(x))
-      }
-      dispatch(_setCart(cart))
-    } catch (error) {
-      next(error)
-    }
-  }
-}
-
-export const addToCart = item => {
-  return async dispatch => {
-    try {
-      let cart = localStorage.getItem("cart")
-      cart = JSON.parse(cart)
-      if(cart === null) {
-        const x = []
-        localStorage.setItem("cart", JSON.stringify(x))
-        cart = localStorage.getItem("cart")
+      if(auth.id !== null) {
+        let cart = localStorage.getItem(`cart-${auth.id}`)
         cart = JSON.parse(cart)
+
+        if(cart === null) {
+          localStorage.setItem(`cart-${auth.id}`, JSON.stringify([]))
+          dispatch(_setCart([]))
+          console.log('logged in cart created')
+          return
+        }
+        dispatch(_setCart(cart))
+        console.log('dispatched setCart as logged in user')
+        return
+      } else if(auth === {}) {
+        let cart = localStorage.getItem("guestCart")
+        cart = JSON.parse(cart)
+        console.log('guestCart from guest', cart)
+        if(cart === null) {
+          localStorage.setItem("guestCart", JSON.stringify([]))
+          cart = localStorage.getItem("guestCart")
+          cart = JSON.parse(cart)
+          console.log('guest cart created')
+        }
+        dispatch(_setCart(cart))
+        console.log('dispatched setCart as guest', cart)
       }
-      const cartCopy = [...cart]
-      cartCopy.push(item)
-      localStorage.setItem("cart", JSON.stringify(cartCopy))
-      dispatch(_addItem(item))
     } catch (error) {
-      next(error)
+      console.error(error)
     }
   }
 }
 
-export const clearCart = () => {
+export const addToCart = (item, auth) => {
   return async dispatch => {
     try {
-      const arr = []
-      localStorage.setItem("cart", JSON.stringify(arr))
-      dispatch(_clearCart(arr))
+      if(auth.id !== null) {
+        let cart = localStorage.getItem(`cart-${auth.id}`)
+        cart = JSON.parse(cart)
+
+        if(cart === null) {
+          localStorage.setItem(`cart-${auth.id}`, JSON.stringify([]))
+          dispatch(_setCart([]))
+          cart = localStorage.getItem(`cart-${auth.id}`)
+          cart = JSON.parse(cart)
+          console.log('logged in cart created in addtocart', cart)
+        }
+        const cartCopy = [...cart]
+        cartCopy.push(item)
+        localStorage.setItem(`cart-${auth.id}`, JSON.stringify(cartCopy))
+        dispatch(_addItem(item))
+        console.log('dispatched addItem as logged in user ')
+        return
+      } else if(auth === {}) {
+        let cart = localStorage.getItem("guestCart")
+        cart = JSON.parse(cart)
+        if(cart === null) {
+          localStorage.setItem("guestCart", JSON.stringify([]))
+          cart = localStorage.getItem("guestCart")
+          cart = JSON.parse(cart)
+          dispatch(_setCart(cart))
+          console.log('made a guest cart with addToCart')
+        }
+        dispatch(_addItem(item))
+        const cartCopy = [...cart]
+        cartCopy.push(item)
+        localStorage.setItem("guestCart", JSON.stringify(cartCopy))
+      }
     } catch (error) {
-      
+      console.error(error)
     }
   }
 }
 
-export const removeFromCart = id => {
+export const clearCart = auth => {
   return async dispatch => {
     try {
-      let cart = localStorage.getItem("cart")
+      const empty = []
+      if(auth.id !== null) {
+        localStorage.setItem(`cart-${auth.id}`, JSON.stringify(empty))
+      } else if(auth === {}) {
+        localStorage.setItem("guestCart", JSON.stringify(empty))
+      }
+      dispatch(_clearCart(empty))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+export const removeFromCart = (id, auth) => {
+  return async dispatch => {
+    try {
+      let cartString = "guestCart"
+      if(auth.id !== null) {
+        cartString = `cart-${auth.id}`
+      } 
+      let cart = localStorage.getItem(`${cartString}`)
       cart = JSON.parse(cart)
       cart = cart.filter(e => e.id !== id)
-      localStorage.setItem("cart", JSON.stringify(cart))
+      localStorage.setItem(`${cartString}`, JSON.stringify(cart))
       dispatch(_removeItem(id))
     } catch (error) {
       next(error)

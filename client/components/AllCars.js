@@ -53,11 +53,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AllCars = () => {
-  const { cars } = useSelector((state) => {
+
+  const { cars, auth } = useSelector((state) => {
     return {
       cars: state.cars,
+      auth: state.auth
     };
   });
+  
+  // let authId = null
+  // if(auth !== {}) {
+  //   authId = auth.id
+  // }
 
   const dispatch = useDispatch();
 
@@ -132,7 +139,7 @@ const AllCars = () => {
                     // to={`/cars/${car.id}`}
                     carId={car.id}
                   />
-                  <Button onClick={() => dispatch(addToCart(car))}size="small" color="primary">
+                  <Button onClick={() => dispatch(addToCart(car, auth))}size="small" color="primary">
                     Add to Cart
                   </Button>
                 </CardActions>
