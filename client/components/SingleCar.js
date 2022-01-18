@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchCar } from "../store/car";
 import { useHistory } from 'react-router-dom'
 
+// import { addToCart } from "../store/cart"
 import { makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -99,6 +100,9 @@ export default function SingleCar(props) {
         </DialogContent>
 
         <DialogActions>
+          <Button onClick={() => {addToCart()}} color="primary">
+            Add To Cart
+          </Button>
           <Button onClick={handleClose} color="primary">
             Close
           </Button>
