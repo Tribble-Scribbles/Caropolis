@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCar } from "../store/car";
 import { useParams } from 'react-router-dom'
+import { addToCart } from "../store/cart";
 
 const SingleCar = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const SingleCar = () => {
         <h4>Exterior color: {car.color}</h4>
         <h4>VIN: {car.vin}</h4>
         <h4>Trim: {car.trim}</h4>
-        <button>Add To Cart</button>
+        <button onClick={() => addToCart(car)}>Add To Cart</button>
       </div>
     </div>
   );

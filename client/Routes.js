@@ -9,6 +9,7 @@ import UserProfile from './components/UserProfile';
 import { connect } from 'react-redux';
 import { me } from './store';
 
+import Cart from './components/Cart'
 
 class Routes extends Component {
   componentDidMount() {
@@ -16,8 +17,7 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
-
+    // const { isLoggedIn } = this.props;
     return (
       <div>
         {/* {isLoggedIn ? (
@@ -33,6 +33,7 @@ class Routes extends Component {
           <Route exact path="/cars" component={AllCars} />
           <Route exact path="/cars/:id" component={SingleCar} />
           <Route exact path="/account" component={UserProfile} />
+          <Route exact path="/cart" component={Cart} />
         </Switch>
         {/* )} */}
       </div>
