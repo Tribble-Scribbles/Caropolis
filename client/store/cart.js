@@ -76,6 +76,9 @@ export const addToCart = (item, auth) => {
           cart = JSON.parse(cart)
         }
         const cartCopy = [...cart]
+        for(let i = 0; i < cartCopy.length; i++) {
+          if(cartCopy[i].id === item.id) return
+        }
         cartCopy.push(item)
         localStorage.setItem(`cart-${auth.id}`, JSON.stringify(cartCopy))
         dispatch(_addItem(item))
@@ -89,10 +92,13 @@ export const addToCart = (item, auth) => {
           cart = JSON.parse(cart)
           dispatch(_setCart(cart))
         }
-        dispatch(_addItem(item))
         const cartCopy = [...cart]
+        for(let i = 0; i < cartCopy.length; i++) {
+          if(cartCopy[i].id === item.id) return
+        }
         cartCopy.push(item)
         localStorage.setItem("guestCart", JSON.stringify(cartCopy))
+        dispatch(_addItem(item))
       }
     } catch (error) {
       console.error(error)
