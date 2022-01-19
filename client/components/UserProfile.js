@@ -15,7 +15,6 @@ const UserProfile = () => {
       <div id="user-profile-info">
         <h1>Welcome {firstName}</h1>
         <h3>Past Orders</h3>
-        <h3>Favorite Cars</h3>
       </div>
       <div id="account-info">
         <h3>Account Information</h3>
