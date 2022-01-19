@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchCars } from "../store/cars";
-import SingleCar from "./SingleCar"
-import { addToCart } from "../store/cart";
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { fetchCars } from '../store/cars';
+import SingleCar from './SingleCar';
+import { addToCart } from '../store/cart';
 import { useSnackbar } from 'notistack';
 
 import {
@@ -18,9 +18,9 @@ import {
   Toolbar,
   Container,
   Button,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import SpeedIcon from "@material-ui/icons/Speed";
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import SpeedIcon from '@material-ui/icons/Speed';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -28,28 +28,28 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(8, 0, 6),
   },
   icon: {
-    marginRight: "20px",
+    marginRight: '20px',
   },
   buttons: {
-    marginTop: "40px",
+    marginTop: '40px',
   },
   cardGrid: {
-    padding: "20px 0",
+    padding: '20px 0',
   },
   card: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
   },
   cardMedia: {
-    paddingTop: "56.25%",
+    paddingTop: '56.25%',
   },
   cardContent: {
     flexGrow: 1,
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
-    padding: "50px 0",
+    padding: '50px 0',
   },
 }));
 
@@ -60,7 +60,7 @@ const AllCars = () => {
   const { cars, auth } = useSelector((state) => {
     return {
       cars: state.cars,
-      auth: state.auth
+      auth: state.auth,
     };
   });
 
@@ -71,46 +71,46 @@ const AllCars = () => {
   }, []);
 
   const handleAddToCart = (car) => {
-    enqueueSnackbar("Successfully added to cart!", {
-      variant: "success"
-    })
-    dispatch(addToCart(car, auth))
-  }
+    enqueueSnackbar('Successfully added to cart!', {
+      variant: 'success',
+    });
+    dispatch(addToCart(car, auth));
+  };
 
   return (
     <div>
       <CssBaseline />
-      <AppBar position="relative">
+      <AppBar position='relative'>
         <Toolbar>
           <SpeedIcon className={classes.icon} />
-          <Typography variant="h6">MOTORCARS</Typography>
+          <Typography variant='h6'>MOTORCARS</Typography>
         </Toolbar>
       </AppBar>
       <div className={classes.container}>
-        <Container maxWidth="sm">
+        <Container maxWidth='sm'>
           <Typography
-            variant="h2"
-            align="center"
-            color="textPrimary"
+            variant='h2'
+            align='center'
+            color='textPrimary'
             gutterBottom
           >
             LUXURY VEHICLES
           </Typography>
           <Typography
-            variant="h5"
-            align="center"
-            color="textSecondary"
+            variant='h5'
+            align='center'
+            color='textSecondary'
             paragraph
           >
             EXPERIENCE YOUR DREAM CAR TODAY
           </Typography>
           <div className={classes.buttons}>
-            <Grid container spacing={2} justifyContent="center">
+            <Grid container spacing={2} justifyContent='center'>
               <Grid item>
-                <Button variant="contained" color="primary">
+                <Button variant='contained' color='primary'>
                   Filter
                 </Button>
-                <Button variant="outlined" color="primary">
+                <Button variant='outlined' color='primary'>
                   Filter
                 </Button>
               </Grid>
@@ -118,7 +118,7 @@ const AllCars = () => {
           </div>
         </Container>
       </div>
-      <Container className={classes.cardGrid} maxWidth="md">
+      <Container className={classes.cardGrid} maxWidth='md'>
         <Grid container spacing={4}>
           {cars.map((car) => (
             <Grid item key={car.id} xs={12} sm={6} md={4}>
@@ -126,10 +126,10 @@ const AllCars = () => {
                 <CardMedia
                   className={classes.cardMedia}
                   image={car.imageUrl}
-                  title="Image Title"
+                  title='Image Title'
                 />
                 <CardContent className={classes.cardContent}>
-                  <Typography gutterBottom variant="h6">
+                  <Typography gutterBottom variant='h6'>
                     {car.year} {car.make} {car.model}
                   </Typography>
                   <Typography>{car.price}</Typography>
@@ -142,8 +142,22 @@ const AllCars = () => {
                     // to={`/cars/${car.id}`}
                     carId={car.id}
                   />
-                  <Button onClick={() => {handleAddToCart(car)}}size="small" color="primary">
+                  <Button
+                    onClick={() => {
+                      handleAddToCart(car);
+                    }}
+                    size='small'
+                    color='primary'
+                  >
                     Add to Cart
+                  </Button>
+                  <Button
+                    component={Link}
+                    to={`/cars/edit/${car.id}`}
+                    size='small'
+                    color='secondary'
+                  >
+                    Edit
                   </Button>
                 </CardActions>
               </Card>
@@ -152,10 +166,10 @@ const AllCars = () => {
         </Grid>
       </Container>
       <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
+        <Typography variant='h6' align='center' gutterBottom>
           Footer
         </Typography>
-        <Typography variant="subtitle1" align="center" color="textSecondary">
+        <Typography variant='subtitle1' align='center' color='textSecondary'>
           Note for the Footer
         </Typography>
       </footer>
