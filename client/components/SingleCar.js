@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 import { useSnackbar } from 'notistack';
 
 import { addToCart } from "../store/cart"
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import { Grid } from "@material-ui/core";
