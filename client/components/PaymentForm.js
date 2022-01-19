@@ -33,7 +33,7 @@ const PaymentForm = () => {
     // console.log('paymentIntent id:', paymentIntent.id, 'status', paymentIntent.status)
   }
   return (
-    <form action="/create-checkout-session" method="POST">
+    <form action="/stripe/create-checkout-session" method="POST">
       <label htmlFor="card-element">Card</label>
       <CardElement id="card-element"/>
 
