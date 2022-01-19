@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { fetchCars } from "../store/cars";
 import SingleCar from "./SingleCar"
 import { addToCart } from "../store/cart";
+import { useSnackbar } from 'notistack';
 
 import {
   Typography,
@@ -53,6 +54,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AllCars = () => {
+  const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
 
   const { cars, auth } = useSelector((state) => {
     return {
@@ -67,7 +70,12 @@ const AllCars = () => {
     dispatch(fetchCars());
   }, []);
 
-  const classes = useStyles();
+  const handleAddToCart = (car) => {
+    enqueueSnackbar("Successfully added to cart!", {
+      variant: "success"
+    })
+    dispatch(addToCart(car, auth))
+  }
 
   return (
     <div>
@@ -134,7 +142,7 @@ const AllCars = () => {
                     // to={`/cars/${car.id}`}
                     carId={car.id}
                   />
-                  <Button onClick={() => dispatch(addToCart(car, auth))}size="small" color="primary">
+                  <Button onClick={() => {handleAddToCart(car)}}size="small" color="primary">
                     Add to Cart
                   </Button>
                 </CardActions>

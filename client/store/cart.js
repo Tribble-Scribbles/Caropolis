@@ -152,9 +152,9 @@ export const removeFromCart = (id, auth) => {
   return async dispatch => {
     try {
       let cartString = "guestCart"
-      if(auth.id !== null) {
+      if(auth.id) {
         cartString = `cart-${auth.id}`
-      } 
+      }
       let cart = localStorage.getItem(`${cartString}`)
       cart = JSON.parse(cart)
       cart = cart.filter(e => e.id !== id)
