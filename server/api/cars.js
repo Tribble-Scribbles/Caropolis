@@ -35,7 +35,25 @@ router.post('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const car = await Car.findByPk(req.params.id);
-    res.json(await car.update(req.body));
+    res.json(
+      await car.update({
+        vin: req.body.vin,
+        trim: req.body.trim,
+        bodyType: req.body.bodyType,
+        mileage: req.body.mileage,
+        year: req.body.year,
+        make: req.body.make,
+        model: req.body.model,
+        price: req.body.price,
+        imageUrl: req.body.imageUrl,
+        color: req.body.color,
+        city: req.body.city,
+        qty: req.body.qty,
+        condition: req.body.condition,
+        dealerName: req.body.dealerName,
+        state: req.body.state,
+      })
+    );
   } catch (error) {
     next(error);
   }
