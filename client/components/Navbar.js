@@ -36,9 +36,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => {
+  const { isLoggedIn, isAdmin } = useSelector((state) => {
     return {
-      loginStatus: state.auth.loginStatus,
+      isLoggedIn: state.auth.loginStatus,
+      isAdmin: state.auth.isAdmin,
     };
   });
 
@@ -64,15 +65,6 @@ export default function Navbar() {
           <nav>
             <MUIButton
               component={Link}
-              to='/createcar'
-              color='secondary'
-              className={classes.link}
-            >
-              Add Car
-            </MUIButton>
-
-            <MUIButton
-              component={Link}
               to='/home'
               color='inherit'
               className={classes.link}
@@ -89,7 +81,7 @@ export default function Navbar() {
               Listings
             </MUIButton>
 
-            {isLoggedIn.loginStatus ? (
+            {isLoggedIn ? (
               <MUIButton
                 component={Link}
                 to='/account'
@@ -109,6 +101,17 @@ export default function Navbar() {
               </MUIButton>
             )}
 
+            {isAdmin && (
+              <MUIButton
+                component={Link}
+                to='/createcar'
+                color='inherit'
+                className={classes.link}
+              >
+                ADD CAR
+              </MUIButton>
+            )}
+
             <MUIButton
               component={Link}
               to='/cart'
@@ -118,7 +121,7 @@ export default function Navbar() {
               <ShopTwoOutlinedIcon />
             </MUIButton>
 
-            {isLoggedIn.loginStatus ? (
+            {isLoggedIn ? (
               <MUIButton
                 color='primary'
                 component={Link}
