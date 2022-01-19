@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { withRouter, Route, Switch, Redirect} from 'react-router-dom'
+import React, { Component } from 'react';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
 import Home from './components/Home';
@@ -8,8 +8,10 @@ import AllCars from './components/AllCars';
 import UserProfile from './components/UserProfile';
 import { connect } from 'react-redux';
 import { me } from './store';
+import CreateCar from './components/CreateCar';
+import EditCar from './components/EditCar';
 
-import Cart from './components/Cart'
+import Cart from './components/Cart';
 
 class Routes extends Component {
   componentDidMount() {
@@ -26,14 +28,16 @@ class Routes extends Component {
           </Switch>
         ) : ( */}
         <Switch>
-          <Route path="/home" component={Home} />
-          <Route exact path="/" exact component={LogIn} />
-          <Route path="/login" component={LogIn} />
-          <Route path="/signup" component={SignUp} />
-          <Route exact path="/cars" component={AllCars} />
-          <Route exact path="/cars/:id" component={SingleCar} />
-          <Route exact path="/account" component={UserProfile} />
-          <Route exact path="/cart" component={Cart} />
+          <Route path='/home' component={Home} />
+          <Route exact path='/' exact component={LogIn} />
+          <Route path='/login' component={LogIn} />
+          <Route path='/signup' component={SignUp} />
+          <Route exact path='/cars' component={AllCars} />
+          <Route exact path='/cars/:id' component={SingleCar} />
+          <Route exact path='/account' component={UserProfile} />
+          <Route exact path='/cart' component={Cart} />
+          <Route path='/createcar' component={CreateCar} />
+          <Route path='/cars/edit/:id' component={EditCar} />
         </Switch>
         {/* )} */}
       </div>
@@ -41,11 +45,11 @@ class Routes extends Component {
   }
 }
 
-const mapState = state => {
+const mapState = (state) => {
   return {
-    isLoggedIn: !!state.auth.id
-  }
-}
+    isLoggedIn: !!state.auth.id,
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
@@ -58,8 +62,7 @@ const mapDispatch = (dispatch) => {
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
 
-export default withRouter(connect(mapState, mapDispatch)(Routes))
-
+export default withRouter(connect(mapState, mapDispatch)(Routes));
 
 // Refactored hook version but it is missing withRouter implementation
 
