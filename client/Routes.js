@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import { withRouter, Route, Switch, Redirect} from 'react-router-dom'
+import { connect } from 'react-redux';
+import { me } from './store';
+
 import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
 import Home from './components/Home';
 import SingleCar from './components/SingleCar';
 import AllCars from './components/AllCars';
 import UserProfile from './components/UserProfile';
-import { connect } from 'react-redux';
-import { me } from './store';
-
-import Cart from './components/Cart'
+import SuccessPayment from './components/SuccessPayment'
+import FailedPayment from './components/FailedPayment'
+import PaymentForm from './components/PaymentForm';
+import Cart from './components/Cart';
 
 class Routes extends Component {
   componentDidMount() {
@@ -33,7 +36,10 @@ class Routes extends Component {
           <Route exact path="/cars" component={AllCars} />
           <Route exact path="/cars/:id" component={SingleCar} />
           <Route exact path="/account" component={UserProfile} />
+          <Route exact path='/?success=true' component={SuccessPayment} />
+          <Route exact path='?canceled=true' component={FailedPayment} />
           <Route exact path="/cart" component={Cart} />
+          <Route exact path="/payment-form" component={PaymentForm} />
         </Switch>
         {/* )} */}
       </div>
