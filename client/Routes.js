@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import SignUp from './components/SignUp';
-import LogIn from './components/LogIn';
-import Home from './components/Home';
-import SingleCar from './components/SingleCar';
-import AllCars from './components/AllCars';
-import UserProfile from './components/UserProfile';
-import SuccessPayment from './components/SuccessPayment'
-import FailedPayment from './components/FailedPayment'
-import PaymentForm from './components/PaymentForm';
-import { connect } from 'react-redux';
-import { me } from './store';
-import CreateCar from './components/CreateCar';
-import EditCar from './components/EditCar';
+import React, { Component } from "react";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import SignUp from "./components/SignUp";
+import LogIn from "./components/LogIn";
+import Home from "./components/Home";
+import SingleCar from "./components/SingleCar";
+import AllCars from "./components/AllCars";
+import UserProfile from "./components/UserProfile";
+import SuccessPayment from "./components/SuccessPayment";
+import FailedPayment from "./components/FailedPayment";
+import PaymentForm from "./components/PaymentForm";
+import { connect } from "react-redux";
+import { me } from "./store";
+import CreateCar from "./components/CreateCar";
+import EditCar from "./components/EditCar";
 
-import Cart from './components/Cart';
+import Cart from "./components/Cart";
 
 class Routes extends Component {
   componentDidMount() {
@@ -22,16 +22,9 @@ class Routes extends Component {
   }
 
   render() {
-    // const { isLoggedIn } = this.props;
     return (
       <div>
-        {/* {isLoggedIn ? (
-          <Switch>
-            <Route path="/home" component={Home} />
-          </Switch>
-        ) : ( */}
         <Switch>
-<<<<<<< HEAD
           <Route path="/home" component={Home} />
           <Route exact path="/" exact component={LogIn} />
           <Route path="/login" component={LogIn} />
@@ -39,24 +32,13 @@ class Routes extends Component {
           <Route exact path="/cars" component={AllCars} />
           <Route exact path="/cars/:id" component={SingleCar} />
           <Route exact path="/account" component={UserProfile} />
-          <Route exact path='/?success=true' component={SuccessPayment} />
-          <Route exact path='?canceled=true' component={FailedPayment} />
           <Route exact path="/cart" component={Cart} />
+          <Route exact path="/?success=true" component={SuccessPayment} />
+          <Route exact path="/?canceled=true" component={FailedPayment} />
           <Route exact path="/payment-form" component={PaymentForm} />
-=======
-          <Route path='/home' component={Home} />
-          <Route exact path='/' exact component={LogIn} />
-          <Route path='/login' component={LogIn} />
-          <Route path='/signup' component={SignUp} />
-          <Route exact path='/cars' component={AllCars} />
-          <Route exact path='/cars/:id' component={SingleCar} />
-          <Route exact path='/account' component={UserProfile} />
-          <Route exact path='/cart' component={Cart} />
-          <Route path='/createcar' component={CreateCar} />
-          <Route path='/cars/edit/:id' component={EditCar} />
->>>>>>> 9489dc91ef4fc30741eb7d7ce076586b3ec5cb1c
+          <Route path="/createcar" component={CreateCar} />
+          <Route path="/cars/edit/:id" component={EditCar} />
         </Switch>
-        {/* )} */}
       </div>
     );
   }

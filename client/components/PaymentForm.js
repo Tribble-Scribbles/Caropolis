@@ -34,9 +34,6 @@ const PaymentForm = () => {
   }
   return (
     <form action="/stripe/create-checkout-session" method="POST">
-      <label htmlFor="card-element">Card</label>
-      <CardElement id="card-element"/>
-
       <button>Pay</button>
     </form>
   )

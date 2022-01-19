@@ -12,6 +12,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import CartItem from './CartItem'
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,7 +71,6 @@ const Cart = () => {
   const dispatch = useDispatch()
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
-
   const { cart, auth } = useSelector((state) => {
     return {
       cart: state.cart,
@@ -153,10 +153,19 @@ const Cart = () => {
                 <RemoveShoppingCartIcon className={classes.extendedIcon} />
                 Clear Cart
               </Fab>
-              <Fab variant="extended" color="primary">
+              <form action={`/stripe/create-checkout-session/${totalPrice.toFixed(0) * 100 + 500}`} method="POST" body={totalPrice} >
+                <Fab variant="extended" color="primary" type="submit">
+                  <ShoppingCartIcon className={classes.extendedIcon} />
+                  Checkout
+                </Fab>
+              </form>
+              {/* <form action={`/stripe/create-checkout-session/${totalPrice.toFixed(0) * 100}`} method="POST" body={totalPrice}>
+                <button>Pay</button>
+              </form> */}
+              {/* <Fab variant="extended" color="primary" onClick={() => dispatch(stripeCheckout(cart, auth))}>
                 <ShoppingCartIcon className={classes.extendedIcon} />
                 Checkout
-              </Fab>
+              </Fab> */}
               {
                 auth.id &&
                 <Fab variant="extended" color="primary" onClick={() => mergeGuestCart()}>
