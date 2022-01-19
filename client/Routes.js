@@ -20,6 +20,7 @@ class Routes extends Component {
 
   render() {
     // const { isLoggedIn } = this.props;
+    const { isAdmin } = this.props;
     return (
       <div>
         {/* {isLoggedIn ? (
@@ -36,8 +37,12 @@ class Routes extends Component {
           <Route exact path='/cars/:id' component={SingleCar} />
           <Route exact path='/account' component={UserProfile} />
           <Route exact path='/cart' component={Cart} />
-          <Route path='/createcar' component={CreateCar} />
-          <Route path='/cars/edit/:id' component={EditCar} />
+          {isAdmin && (
+            <>
+              <Route path='/createcar' component={CreateCar} />
+              <Route path='/cars/edit/:id' component={EditCar} />
+            </>
+          )}
         </Switch>
         {/* )} */}
       </div>
@@ -48,6 +53,7 @@ class Routes extends Component {
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+    isAdmin: !!state.auth.isAdmin,
   };
 };
 
