@@ -1,6 +1,6 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import {logout} from '../store'
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../store';
 import { Link } from 'react-router-dom';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -31,67 +31,120 @@ const useStyles = makeStyles((theme) => ({
   link: {
     margin: theme.spacing(1, 1.5),
   },
-}))
+}));
 
 export default function Navbar() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => {
     return {
-      loginStatus: state.auth.loginStatus
-    }
-  })
+      loginStatus: state.auth.loginStatus,
+    };
+  });
 
-  return(
+  return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
-          <Toolbar className={classes.toolbar}>
-            <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-              Caropolis
-            </Typography>
+      <AppBar
+        position='static'
+        color='default'
+        elevation={0}
+        className={classes.appBar}
+      >
+        <Toolbar className={classes.toolbar}>
+          <Typography
+            variant='h6'
+            color='inherit'
+            noWrap
+            className={classes.toolbarTitle}
+          >
+            Caropolis
+          </Typography>
 
-            <nav>
-              <MUIButton component={Link} to="/home" color="inherit" className={classes.link}>
-                Home
+          <nav>
+            <MUIButton
+              component={Link}
+              to='/createcar'
+              color='secondary'
+              className={classes.link}
+            >
+              Add Car
+            </MUIButton>
+
+            <MUIButton
+              component={Link}
+              to='/home'
+              color='inherit'
+              className={classes.link}
+            >
+              Home
+            </MUIButton>
+
+            <MUIButton
+              component={Link}
+              to='/cars'
+              color='inherit'
+              className={classes.link}
+            >
+              Listings
+            </MUIButton>
+
+            {isLoggedIn.loginStatus ? (
+              <MUIButton
+                component={Link}
+                to='/account'
+                color='inherit'
+                className={classes.link}
+              >
+                Account
               </MUIButton>
-
-              <MUIButton component={Link} to="/cars" color="inherit" className={classes.link}>
-                Listings
+            ) : (
+              <MUIButton
+                component={Link}
+                to='/signup'
+                color='inherit'
+                className={classes.link}
+              >
+                Sign Up
               </MUIButton>
+            )}
 
-              {
-                isLoggedIn.loginStatus ? (
-                  <MUIButton component={Link} to="/account" color="inherit" className={classes.link}>
-                    Account
-                  </MUIButton>
-                ) : (
-                  <MUIButton component={Link} to="/signup" color="inherit" className={classes.link}>
-                    Sign Up
-                  </MUIButton>
-                )
-              }
+            <MUIButton
+              component={Link}
+              to='/cart'
+              color='inherit'
+              className={classes.link}
+            >
+              <ShopTwoOutlinedIcon />
+            </MUIButton>
 
-              <MUIButton component={Link} to="/cart" color="inherit" className={classes.link}>
-                <ShopTwoOutlinedIcon />
+            {isLoggedIn.loginStatus ? (
+              <MUIButton
+                color='primary'
+                component={Link}
+                to='/home'
+                variant='outlined'
+                className={classes.link}
+                onClick={() => {
+                  dispatch(logout());
+                }}
+              >
+                Logout
               </MUIButton>
-
-              {
-                isLoggedIn.loginStatus ? (
-                  <MUIButton color="primary" component={Link} to="/home" variant="outlined" className={classes.link} onClick={() => {
-                  dispatch(logout())
-                    }}>
-                    Logout
-                  </MUIButton>
-                ) : (
-                  <MUIButton color="primary" component={Link} to="/login" variant="outlined" className={classes.link} >
-                    Login
-                  </MUIButton>
-                )
-              }
-            </nav>
-          </Toolbar>
-        </AppBar>
+            ) : (
+              <MUIButton
+                color='primary'
+                component={Link}
+                to='/login'
+                variant='outlined'
+                className={classes.link}
+              >
+                Login
+              </MUIButton>
+            )}
+          </nav>
+        </Toolbar>
+      </AppBar>
     </React.Fragment>
-  )
+  );
 }

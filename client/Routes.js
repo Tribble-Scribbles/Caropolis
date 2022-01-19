@@ -1,8 +1,5 @@
-import React, { Component } from 'react'
-import { withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import { connect } from 'react-redux';
-import { me } from './store';
-
+import React, { Component } from 'react';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
 import Home from './components/Home';
@@ -12,6 +9,11 @@ import UserProfile from './components/UserProfile';
 import SuccessPayment from './components/SuccessPayment'
 import FailedPayment from './components/FailedPayment'
 import PaymentForm from './components/PaymentForm';
+import { connect } from 'react-redux';
+import { me } from './store';
+import CreateCar from './components/CreateCar';
+import EditCar from './components/EditCar';
+
 import Cart from './components/Cart';
 
 class Routes extends Component {
@@ -29,6 +31,7 @@ class Routes extends Component {
           </Switch>
         ) : ( */}
         <Switch>
+<<<<<<< HEAD
           <Route path="/home" component={Home} />
           <Route exact path="/" exact component={LogIn} />
           <Route path="/login" component={LogIn} />
@@ -40,6 +43,18 @@ class Routes extends Component {
           <Route exact path='?canceled=true' component={FailedPayment} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/payment-form" component={PaymentForm} />
+=======
+          <Route path='/home' component={Home} />
+          <Route exact path='/' exact component={LogIn} />
+          <Route path='/login' component={LogIn} />
+          <Route path='/signup' component={SignUp} />
+          <Route exact path='/cars' component={AllCars} />
+          <Route exact path='/cars/:id' component={SingleCar} />
+          <Route exact path='/account' component={UserProfile} />
+          <Route exact path='/cart' component={Cart} />
+          <Route path='/createcar' component={CreateCar} />
+          <Route path='/cars/edit/:id' component={EditCar} />
+>>>>>>> 9489dc91ef4fc30741eb7d7ce076586b3ec5cb1c
         </Switch>
         {/* )} */}
       </div>
@@ -47,11 +62,11 @@ class Routes extends Component {
   }
 }
 
-const mapState = state => {
+const mapState = (state) => {
   return {
-    isLoggedIn: !!state.auth.id
-  }
-}
+    isLoggedIn: !!state.auth.id,
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
@@ -64,8 +79,7 @@ const mapDispatch = (dispatch) => {
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
 
-export default withRouter(connect(mapState, mapDispatch)(Routes))
-
+export default withRouter(connect(mapState, mapDispatch)(Routes));
 
 // Refactored hook version but it is missing withRouter implementation
 

@@ -2,9 +2,10 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCar } from "../store/car";
 import { useHistory } from 'react-router-dom'
+import { useSnackbar } from 'notistack';
 
 import { addToCart } from "../store/cart"
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import { Grid } from "@material-ui/core";
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SingleCar(props) {
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const { carId } = props;
 
@@ -43,7 +45,7 @@ export default function SingleCar(props) {
   const { car, auth } = useSelector((state) => {
     return {
       car: state.car,
-      auth: state.auth
+      auth: state.auth,
     };
   });
 
@@ -52,9 +54,17 @@ export default function SingleCar(props) {
     dispatch(fetchCar(carId));
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleAddToCart = () => {
+    enqueueSnackbar("Successfully added to cart!", {
+      variant: "success"
+    })
+    dispatch(addToCart(car, auth))
+  }
 
   return (
     <React.Fragment>
@@ -101,7 +111,7 @@ export default function SingleCar(props) {
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={() => dispatch(addToCart(car, auth))} color="primary">
+          <Button onClick={handleAddToCart} color="primary">
             Add To Cart
           </Button>
           <Button onClick={handleClose} color="primary">
