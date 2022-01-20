@@ -1,50 +1,52 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { logIn } from '../store'
-import { Link as RouterLink } from 'react-router-dom';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logIn } from "../store";
+import { Link as RouterLink } from "react-router-dom";
 
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
+    height: "100vh",
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random/?supercar)',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    backgroundImage: "url(https://source.unsplash.com/random/?supercar)",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+      theme.palette.type === "light"
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
   },
   paper: {
     margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     margin: theme.spacing(1),
   },
   formItem: {
-    alignItems: 'center',
+    alignItems: "center",
     margin: theme.spacing(1),
   },
   submit: {
@@ -54,24 +56,33 @@ export const useStyles = makeStyles((theme) => ({
 
 export default function LogIn() {
   const classes = useStyles();
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [errorStatus, setErrorStatus] = useState(false)
-  const dispatch = useDispatch()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorStatus, setErrorStatus] = useState(false);
+  const dispatch = useDispatch();
+
+  const { error } = useSelector((state) => {
+    return state.auth;
+  });
+  if (error) {
+    alert("User Password is Incorrect. Please Try Again.");
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    if(!email.includes("@")){
-      setErrorStatus(true)
+    e.preventDefault();
+    if (!email.includes("@")) {
+      setErrorStatus(true);
     }
-    dispatch(logIn(email, password))
-  }
+    dispatch(logIn(email, password));
+    setPassword("");
+    setEmail("");
+  };
 
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square >
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
@@ -120,13 +131,12 @@ export default function LogIn() {
             >
               Login
             </Button>
-            <Grid item >
+            <Grid item>
               <Link to="/signup" component={RouterLink} variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </form>
-
         </div>
       </Grid>
     </Grid>

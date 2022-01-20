@@ -1,35 +1,46 @@
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../store";
-import { Link as RouterLink } from 'react-router-dom';
-import { useStyles as loginStyles } from './LogIn'
+import { Link as RouterLink } from "react-router-dom";
+import { useStyles as loginStyles } from "./LogIn";
 
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
 
 export default function SignUp() {
   const importedStyle = loginStyles();
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [errorStatus, setErrorStatus] = useState(false)
-  const dispatch = useDispatch()
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorStatus, setErrorStatus] = useState(false);
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if(!email.includes("@")){
-      setErrorStatus(true)
-    }
-    dispatch(signUp(password, firstName, lastName, email))
+  const { error } = useSelector((state) => {
+    return state.auth;
+  });
+  if (error) {
+    alert("User Email Already Exists");
   }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email.includes("@")) {
+      setErrorStatus(true);
+    }
+
+    dispatch(signUp(password, firstName, lastName, email));
+    setFirstName("");
+    setLastName("");
+    setPassword("");
+    setEmail("");
+  };
 
   return (
     <Grid container component="main" className={importedStyle.root}>
@@ -44,9 +55,13 @@ export default function SignUp() {
             Sign up
           </Typography>
 
-          <form className={importedStyle.form} noValidate onSubmit={handleSubmit}>
-            <Grid container spacing={1} >
-              <Grid item xs={12} sm={6} >
+          <form
+            className={importedStyle.form}
+            noValidate
+            onSubmit={handleSubmit}
+          >
+            <Grid container spacing={1}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="fname"
                   name="firstName"
@@ -90,7 +105,7 @@ export default function SignUp() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} >
+              <Grid item xs={12}>
                 <TextField
                   variant="outlined"
                   required
@@ -120,7 +135,6 @@ export default function SignUp() {
               </Link>
             </Grid>
           </form>
-
         </div>
       </Grid>
     </Grid>
