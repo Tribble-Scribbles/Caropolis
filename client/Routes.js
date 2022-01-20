@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { withRouter, Route, Switch } from "react-router-dom";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import Home from "./components/Home";
@@ -8,7 +8,6 @@ import AllCars from "./components/AllCars";
 import UserProfile from "./components/UserProfile";
 import SuccessPayment from "./components/SuccessPayment";
 import FailedPayment from "./components/FailedPayment";
-import PaymentForm from "./components/PaymentForm";
 import { connect } from "react-redux";
 import { me } from "./store";
 import CreateCar from "./components/CreateCar";
@@ -33,9 +32,8 @@ class Routes extends Component {
           <Route exact path="/cars/:id" component={SingleCar} />
           <Route exact path="/account" component={UserProfile} />
           <Route exact path="/cart" component={Cart} />
-          <Route exact path="/?success=true" component={SuccessPayment} />
-          <Route exact path="/?canceled=true" component={FailedPayment} />
-          <Route exact path="/payment-form" component={PaymentForm} />
+          <Route exact path="/success" component={SuccessPayment} />
+          <Route exact path="/canceled" component={FailedPayment} />
           <Route path="/createcar" component={CreateCar} />
           <Route path="/cars/edit/:id" component={EditCar} />
         </Switch>

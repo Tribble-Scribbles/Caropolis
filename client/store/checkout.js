@@ -10,15 +10,10 @@ export const _checkout = response => {
   }
 }
 
-export const stripeCheckout = (cart, auth) => {
+export const stripeCheckout = (totalPrice, auth) => {
   return async dispatch => {
     try {
-      // const obj = {cart}
-      const response = (await axios.post(`/stripe/create-checkout-session/${cart}`))
-      console.log('response!', response)
-
-      history.push('/')
-
+      const response = (await axios.post(`/stripe/create-checkout-session/${totalPrice}`))
       dispatch(_checkout(response))
     } catch (error) {
       console.log(error)
