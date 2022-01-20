@@ -275,12 +275,6 @@ const CreateCar = () => {
           >
             ADD
           </Button>
-          {/* <Grid container>
-            <Grid item xs>
-              Forgot password?
-            </Grid>
-            <Grid item>{"Don't have an account? Sign Up"}</Grid>
-          </Grid> */}
         </form>
       </div>
     </Container>

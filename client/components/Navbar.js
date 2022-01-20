@@ -108,7 +108,7 @@ export default function Navbar() {
                 color='inherit'
                 className={classes.link}
               >
-                ADD CAR
+                Add cars
               </MUIButton>
             )}
 

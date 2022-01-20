@@ -64,15 +64,15 @@ export default function LogIn() {
   const { error } = useSelector((state) => {
     return state.auth;
   });
-  if (error) {
-    alert("User Password is Incorrect. Please Try Again.");
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email.includes("@")) {
       setErrorStatus(true);
     }
+    // if (error) {
+    //   alert("User Password is Incorrect. Please Try Again.");
+    // }
     dispatch(logIn(email, password));
     setPassword("");
     setEmail("");

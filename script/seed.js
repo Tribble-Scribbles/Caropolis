@@ -143,7 +143,7 @@ async function seed() {
   let cars = [];
 
   //Change conditional page value (page < 4) to seed more or less than 4 pages of data
-  for(let page = 1; page < 2; page++){
+  for(let page = 1; page < 10; page++){
     cars = [...cars, ...await createCars(page)];
   }
 

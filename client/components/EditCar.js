@@ -66,12 +66,6 @@ const EditCar = () => {
 
   const id = location.pathname.slice(-1);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   dispatch(logIn(email, password));
-  // };
-
-  /// ...?
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(
@@ -317,14 +311,8 @@ const EditCar = () => {
           >
             EDIT
           </Button>
-          {/* <Grid container>
-            <Grid item xs>
-              Forgot password?
-            </Grid>
-            <Grid item>{"Don't have an account? Sign Up"}</Grid>
-          </Grid> */}
         </form>
-        <Button
+        {/* <Button
           type='submit'
           fullWidth
           variant='contained'
@@ -332,7 +320,7 @@ const EditCar = () => {
           className={classes.submit}
         >
           DELETE
-        </Button>
+        </Button> */}
         <form></form>
       </div>
     </Container>

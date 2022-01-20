@@ -1,10 +1,19 @@
 const router = require('express').Router()
 const { models: { Car, Order, User }} = require('../db')
 
-router.get('/', async (req, res, next) => {
+router.get('/:orderId', async (req, res, next) => {
   try {
-    const orders = await Order.findAll()
-    res.send(orders);
+    const order = await Order.findByPk(req.params.orderId, {
+      include:{
+        model: User
+      }
+    })
+    const carsInOrder = await Car.findAll({
+      where:{
+        orderId: req.params.orderId
+      }
+    })
+    res.send({order, carsInOrder});
   } catch (error) {
     next(error)
   }

@@ -12,7 +12,6 @@ import { connect } from "react-redux";
 import { me } from "./store";
 import CreateCar from "./components/CreateCar";
 import EditCar from "./components/EditCar";
-
 import Cart from "./components/Cart";
 
 class Routes extends Component {
@@ -35,8 +34,6 @@ class Routes extends Component {
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/success" component={SuccessPayment} />
           <Route exact path="/canceled" component={FailedPayment} />
-          <Route path="/createcar" component={CreateCar} />
-          <Route path="/cars/edit/:id" component={EditCar} />
           {isAdmin && (
             <>
               <Route path='/createcar' component={CreateCar} />

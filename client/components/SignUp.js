@@ -26,15 +26,15 @@ export default function SignUp() {
   const { error } = useSelector((state) => {
     return state.auth;
   });
-  if (error) {
-    alert("User Email Already Exists");
-  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email.includes("@")) {
       setErrorStatus(true);
     }
-
+    // if (error) {
+    //   alert("User Email Already Exists");
+    // }
     dispatch(signUp(password, firstName, lastName, email));
     setFirstName("");
     setLastName("");
