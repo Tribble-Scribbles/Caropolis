@@ -48,7 +48,8 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       alignItems: 'center',
       flexWrap: 'nowrap',
-      flex: 2,
+      justifyContent: 'center'
+      // flex: 2,
     },
   },
   cartAlign: {
@@ -56,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     height: '60vh',
     textAlign: 'center',
-    padding: '125px'
+    padding: '80px'
   },
   buttonsList: {
     height: '60vh',
@@ -96,8 +97,8 @@ const Cart = () => {
 
   const itemsPrice = cart.reduce((accum, curr) => accum + curr.price, 0)
   const taxPrice = itemsPrice * 0.075;
-  const shippingPrice = itemsPrice > 250000 ? 500 : 7500;
-  const totalPrice = itemsPrice + taxPrice + shippingPrice;
+  const shippingPrice = itemsPrice * 0.05;
+  const totalPrice = itemsPrice === 0 ? 0 : (itemsPrice + taxPrice + shippingPrice);
 
   return (
     <React.Fragment>
@@ -157,7 +158,7 @@ const Cart = () => {
                   <ShoppingCartIcon className={classes.extendedIcon} />
                   Checkout
                 </Fab>
-              </form>             
+              </form>
               {
                 auth.id &&
                 <Fab variant="extended" color="primary" onClick={() => mergeGuestCart()}>

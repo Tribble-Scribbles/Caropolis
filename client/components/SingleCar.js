@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCar } from "../store/car";
 import { useHistory } from 'react-router-dom'
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SingleCar(props) {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const { carId } = props;
 
   const dispatch = useDispatch();

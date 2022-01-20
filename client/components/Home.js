@@ -37,8 +37,8 @@ const useStyles = makeStyles((theme) => ({
 
 const footers = [
   {
-    title: 'About',
-    description: ['Team'],
+    title: 'Created By: Jason, Edward, Sung, Kishn',
+    description: ['Team Github'],
   },
 ];
 
@@ -67,13 +67,13 @@ export default function Home() {
         <Grid container spacing={4} justifyContent="center">
           {footers.map((footer) => (
             <Grid item xs={6} sm={1} key={footer.title}>
-              <Typography variant="h6" color="textPrimary" gutterBottom>
+              <Typography variant="body2" color="textPrimary" gutterBottom>
                 {footer.title}
               </Typography>
               <ul>
                 {footer.description.map((item) => (
                   <li key={item}>
-                    <Link href="#" variant="subtitle1" color="textSecondary">
+                    <Link href="https://github.com/Tribble-Scribbles/Caropolis" variant="subtitle1" color="textSecondary">
                       {item}
                     </Link>
                   </li>
