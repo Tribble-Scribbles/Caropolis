@@ -126,10 +126,6 @@ const AllCars = () => {
                 </CardContent>
                 <CardActions>
                   <SingleCar
-                    // size="small"
-                    // color="primary"
-                    // component={Link}
-                    // to={`/cars/${car.id}`}
                     carId={car.id}
                   />
                   <Button
