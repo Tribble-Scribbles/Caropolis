@@ -16,8 +16,8 @@ router.post('/create-checkout-session/:totalPrice', async (req, res, next) => {
         quantity: 1,
       }],
       mode: 'payment',
-      success_url: 'caroplis.herokuapp.com/success',
-      cancel_url: 'caroplis.herokuapp.com/canceled',
+      success_url: 'caropolis.herokuapp.com/success',
+      cancel_url: 'caropolis.herokuapp.com/canceled',
     });
     res.redirect(303, session.url);
   } catch (error) {
