@@ -70,7 +70,6 @@ const Cart = () => {
   const dispatch = useDispatch()
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
-
   const { cart, auth } = useSelector((state) => {
     return {
       cart: state.cart,
@@ -153,10 +152,12 @@ const Cart = () => {
                 <RemoveShoppingCartIcon className={classes.extendedIcon} />
                 Clear Cart
               </Fab>
-              <Fab variant="extended" color="primary">
-                <ShoppingCartIcon className={classes.extendedIcon} />
-                Checkout
-              </Fab>
+              <form action={`/stripe/create-checkout-session/${totalPrice.toFixed(0) * 100 + 500}`} method="POST" body={totalPrice} >
+                <Fab variant="extended" color="primary" type="submit">
+                  <ShoppingCartIcon className={classes.extendedIcon} />
+                  Checkout
+                </Fab>
+              </form>             
               {
                 auth.id &&
                 <Fab variant="extended" color="primary" onClick={() => mergeGuestCart()}>

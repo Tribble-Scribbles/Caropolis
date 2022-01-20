@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const SuccessPayment = () => {
@@ -8,6 +8,10 @@ const SuccessPayment = () => {
       email: state.auth.email,
     };
   });
+  useEffect(() => {
+    console.log('mounted SuccessPayment')
+  })
+
   return (
     <div>
       <div>
