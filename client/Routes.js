@@ -21,6 +21,7 @@ class Routes extends Component {
   }
 
   render() {
+    const { isAdmin } = this.props;
     return (
       <div>
         <Switch>
@@ -36,6 +37,12 @@ class Routes extends Component {
           <Route exact path="/canceled" component={FailedPayment} />
           <Route path="/createcar" component={CreateCar} />
           <Route path="/cars/edit/:id" component={EditCar} />
+          {isAdmin && (
+            <>
+              <Route path='/createcar' component={CreateCar} />
+              <Route path='/cars/edit/:id' component={EditCar} />
+            </>
+          )}
         </Switch>
       </div>
     );
@@ -45,6 +52,7 @@ class Routes extends Component {
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+    isAdmin: !!state.auth.isAdmin,
   };
 };
 

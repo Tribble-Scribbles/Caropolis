@@ -21,6 +21,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SpeedIcon from '@material-ui/icons/Speed';
+import { LinkedCamera } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -57,10 +58,11 @@ const AllCars = () => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { cars, auth } = useSelector((state) => {
+  const { cars, auth, isAdmin } = useSelector((state) => {
     return {
       cars: state.cars,
       auth: state.auth,
+      isAdmin: state.auth.isAdmin,
     };
   });
 
@@ -104,18 +106,6 @@ const AllCars = () => {
           >
             EXPERIENCE YOUR DREAM CAR TODAY
           </Typography>
-          <div className={classes.buttons}>
-            <Grid container spacing={2} justifyContent='center'>
-              <Grid item>
-                <Button variant='contained' color='primary'>
-                  Filter
-                </Button>
-                <Button variant='outlined' color='primary'>
-                  Filter
-                </Button>
-              </Grid>
-            </Grid>
-          </div>
         </Container>
       </div>
       <Container className={classes.cardGrid} maxWidth='md'>
@@ -132,7 +122,7 @@ const AllCars = () => {
                   <Typography gutterBottom variant='h6'>
                     {car.year} {car.make} {car.model}
                   </Typography>
-                  <Typography>{car.price}</Typography>
+                  <Typography>${car.price}</Typography>
                 </CardContent>
                 <CardActions>
                   <SingleCar
@@ -151,14 +141,16 @@ const AllCars = () => {
                   >
                     Add to Cart
                   </Button>
-                  <Button
-                    component={Link}
-                    to={`/cars/edit/${car.id}`}
-                    size='small'
-                    color='secondary'
-                  >
-                    Edit
-                  </Button>
+                  {isAdmin && (
+                    <Button
+                      component={Link}
+                      to={`/cars/edit/${car.id}`}
+                      size='small'
+                      color='primary'
+                    >
+                      Edit
+                    </Button>
+                  )}
                 </CardActions>
               </Card>
             </Grid>
