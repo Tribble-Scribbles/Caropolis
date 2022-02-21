@@ -1,5 +1,6 @@
 # Caropolis
 
+An E-commerce web app that allows a user or guest to browse our listings, which feature information pulled from real listings, add cars to your cart, and "check-out" using Stripe API. We also utilized a user cart, guest cart, as well as an option to merge the guest cart into your user cart with the click of a button.
 
 ## Setup
 
